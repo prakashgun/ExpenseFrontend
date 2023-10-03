@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearProgress } from '@rneui/themed'
 import React, { useEffect } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import config from '../../config'
 import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import config from '../../config'
 
 
 const Logout = () => {
@@ -61,23 +61,5 @@ export default Logout
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
-    button: {
-        width: '88%',
-        height: 50,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold'
-    },
-    login: {
-        backgroundColor: '#096A2E'
-    },
-    register: {
-        backgroundColor: '#729343'
     }
 })

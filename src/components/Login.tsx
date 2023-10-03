@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native'
 import { Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import config from '../../config'
 import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
-import config from '../../config'
 
 const Login = () => {
     const navigation = useNavigation<any>()
@@ -69,7 +69,7 @@ const Login = () => {
                 onChangeText={setPhone}
                 errorMessage={phoneError}
             />
-            <TouchableOpacity style={[styles.button, styles.register]} onPress={() => loginApi()}>
+            <TouchableOpacity style={styles.button} onPress={() => loginApi()}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
         </View>
@@ -88,16 +88,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor: '#729343'
     },
     buttonText: {
         color: '#fff',
         fontWeight: 'bold'
-    },
-    login: {
-        backgroundColor: '#096A2E'
-    },
-    register: {
-        backgroundColor: '#729343'
     }
 })

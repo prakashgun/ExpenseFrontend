@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const setLoginDetails = async (json) => {
+export const setLoginDetails = async (json:any) => {
     await AsyncStorage.setItem('login_token', json.token)
     await AsyncStorage.setItem('user', JSON.stringify(json.user))
 }

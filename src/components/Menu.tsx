@@ -32,27 +32,26 @@ const Menu = () => {
             <CommonHeader heading="Menu" />
             {isLoggedIn ? (
                 <View>
-
-                    {/* <TouchableOpacity
-                onPress={() => navigation.navigate('AccountList')}
-            >
-                <ListItem key="AccountList" bottomDivider>
-                    <Icon name="bank" type="font-awesome" />
-                    <ListItem.Content>
-                        <ListItem.Title>Accounts</ListItem.Title>
-                    </ListItem.Content>
-                </ListItem>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => navigation.navigate('CategoryList')}
-            >
-                <ListItem key="CategoryList" bottomDivider>
-                    <Icon name="category" type="material-icons" />
-                    <ListItem.Content>
-                        <ListItem.Title>Categories</ListItem.Title>
-                    </ListItem.Content>
-                </ListItem>
-            </TouchableOpacity> */}
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('AccountList')}
+                    >
+                        <ListItem key="AccountList" bottomDivider>
+                            <Icon name="bank" type="font-awesome" />
+                            <ListItem.Content>
+                                <ListItem.Title>Accounts</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('CategoryList')}
+                    >
+                        <ListItem key="CategoryList" bottomDivider>
+                            <Icon name="category" type="material-icons" />
+                            <ListItem.Content>
+                                <ListItem.Title>Categories</ListItem.Title>
+                            </ListItem.Content>
+                        </ListItem>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => navigation.navigate('TransactionList')}
                     >

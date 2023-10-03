@@ -70,10 +70,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     login: {
-        backgroundColor: '#096A2E'
+        backgroundColor: '#729343'
     },
     register: {
-        backgroundColor: '#729343'
+        backgroundColor: '#096A2E'
     }
 });
 

@@ -1,20 +1,19 @@
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import TransactionInterface from '../interfaces/TransactionInterface'
-import { getTransactionsApi } from '../lib/transaction'
+import AccountInterface from '../interfaces/AccountInterface'
+import { getAccountsApi } from '../lib/account'
+import AccountItem from './AccountItem'
 import CommonHeader from './CommonHeader'
-import TransactionItem from './TransactionItem'
 
 
-const TransactionList = ({ navigation }: any) => {
-    const [transactions, setTransactions] = useState<TransactionInterface[]>()
-    const [transactionDate, setTransactionDate] = useState<Date>(new Date())
+const AccountList = ({ navigation }: any) => {
+    const [accounts, setAccounts] = useState<AccountInterface[]>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const loadData = async () => {
-        const allTransactions = await getTransactionsApi()
-        setTransactions(allTransactions)
+        const allAccounts = await getAccountsApi()
+        setAccounts(allAccounts)
     }
 
     useEffect(() => {
@@ -25,30 +24,30 @@ const TransactionList = ({ navigation }: any) => {
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Transactions" />
+            <CommonHeader heading="Accounts" />
             {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
                 <ScrollView >
                     {
-                        transactions && transactions.map((transaction) => (
-                            <TransactionItem
-                                transaction={transaction}
-                                key={transaction.id}
+                        accounts && accounts.map((account) => (
+                            <AccountItem
+                                account={account}
+                                key={account.id}
                                 onPress={() => {
-                                    return navigation.navigate('TransactionScreen', { id: transaction.id })
+                                    return navigation.navigate('AccountScreen', { id: account.id })
                                 }}
                             />
                         ))
                     }
 
                 </ScrollView>}
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction', { transactionDate: transactionDate.toISOString() })}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddAccount')}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-export default TransactionList
+export default AccountList
 
 const styles = StyleSheet.create({
     container: {

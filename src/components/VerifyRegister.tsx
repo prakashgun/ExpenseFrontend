@@ -1,9 +1,9 @@
 import { Button, Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
+import config from '../../config'
 import { setLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import config from '../../config'
 
 const VerifyRegister = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
