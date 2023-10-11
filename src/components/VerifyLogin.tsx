@@ -40,7 +40,7 @@ const VerifyLogin = ({ route, navigation }: any) => {
                 Alert.alert('Error', json.non_field_errors[0])
             } else {
                 await setLoginDetails(json)
-                navigation.navigate('AccountList')
+                navigation.navigate('TransactionList')
             }
 
         } catch (error) {
