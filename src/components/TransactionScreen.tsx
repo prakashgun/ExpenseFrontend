@@ -109,7 +109,7 @@ const TransactionScreen = ({ navigation, route }: any) => {
                         title={transaction.category.name}
                         info={[`${transaction.category.name}`, `${transaction.name}`]}
                         price={thousands_separators(roundCurrency(transaction.value))}
-                        button={{ title: 'Delete Transaction', onPress: () => onDeleteItemPress(), color:'#ff0000' }}
+                        button={{ title: 'Delete Transaction', onPress: () => onDeleteItemPress(), color:'#ff0000', size: 'sm' }}
                     />
                 }
 
