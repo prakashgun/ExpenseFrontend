@@ -6,11 +6,10 @@ export default interface TransactionInterface {
     id: string,
     name: string,
     value: number,
+    type: string,
     is_income: boolean,
     account: AccountInterface,
     category: CategoryInterface,
     transaction_date: Date,
-    from_transaction?: TransactionInterface,
-    to_transaction?: TransactionInterface,
     created?: Date
 }

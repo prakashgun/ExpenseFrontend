@@ -8,6 +8,11 @@ export const transactionTypes: TransactionTypeInterface[] = [
         name: 'Income',
         icon_name: 'attach-money',
         icon_type: 'material-icons'
+    },    
+    {
+        name: 'Transfer',
+        icon_name: 'bank-transfer',
+        icon_type: 'material-community'
     }
 ]
 

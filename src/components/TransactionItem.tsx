@@ -5,21 +5,22 @@ import TransactionItemInterface from '../interfaces/TransactionItemInterface'
 import { thousands_separators } from '../lib/currency'
 
 
-const TransactionItem = ({ transaction, onPress }: TransactionItemInterface) => (
-    <TouchableOpacity onPress={onPress}>
+const TransactionItem = ({ transaction, onPress }: TransactionItemInterface) => {
+
+    let iconName = (transaction.is_income) ? 'attach-money' : 'money-off'
+    let iconType = 'material-icons' 
+    
+    if(transaction.type === 'Transfer'){
+        iconName = 'bank-transfer'
+        iconType = 'material-community' 
+    }
+
+    return (<TouchableOpacity onPress={onPress}>
         <ListItem
             key={transaction.id}
             bottomDivider
         >
-            {
-                (transaction.id === transaction.from_transaction?.id
-                    || transaction.id === transaction.to_transaction?.id) &&
-                <Icon name="bank-transfer" type="material-community" />
-            }
-            <Icon
-                name={(transaction.is_income) ? 'attach-money' : 'money-off'}
-                type="material-icons"
-            />
+            <Icon name={iconName} type={iconType} />
             <ListItem.Content>
                 <ListItem.Title>{transaction.category.name}</ListItem.Title>
                 {transaction.name.trim() !== '' && <ListItem.Subtitle>{transaction.name}</ListItem.Subtitle>}
@@ -31,7 +32,7 @@ const TransactionItem = ({ transaction, onPress }: TransactionItemInterface) => 
                 <ListItem.Subtitle>{transaction.account.name}</ListItem.Subtitle>
             </ListItem.Content>
         </ListItem>
-    </TouchableOpacity>
-)
+    </TouchableOpacity>)
+}
 
 export default TransactionItem

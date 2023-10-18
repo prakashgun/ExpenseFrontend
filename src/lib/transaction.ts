@@ -37,3 +37,34 @@ export const getTransactionsApi = async () => {
         console.error(error);
     }
 }
+
+export const addTransactionApi = async (transactionDetail: object) => {
+    try {
+        const loginDetails: any = await getLoginDetails()
+
+
+        if ('login_token' in loginDetails) {
+            if (loginDetails['login_token'] != null) {
+
+                const response = await fetch(
+                    `${config.API_URL}/detail/transactions/`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': `Token ${loginDetails['login_token']}`
+                        },
+                        body: JSON.stringify(transactionDetail)
+                    }
+                )
+
+                return await response.json()
+            } else {
+                Alert.alert('Error', 'Please login again')
+            }
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}

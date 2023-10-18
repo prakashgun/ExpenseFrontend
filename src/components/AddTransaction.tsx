@@ -13,6 +13,7 @@ import AccountSelect from './AccountSelect'
 import CategorySelect from './CategorySelect'
 import CommonHeader from './CommonHeader'
 import TransactionTypeSelect from './TransactionTypeSelect'
+import { addTransactionApi } from '../lib/transaction'
 
 
 const AddTransaction = ({ navigation, route }: any) => {
@@ -36,11 +37,12 @@ const AddTransaction = ({ navigation, route }: any) => {
         setCategories(allCategories)
 
         if (allAccounts && !selectedAccount) {
-            setSelectedAccount(allAccounts[0])
+            setSelectedAccount(allAccounts.at(0))
+            setSelectedToAccount(allAccounts.at(-1))
         }
 
         if (allCategories && !selectedCategory) {
-            setSelectedCategory(allCategories[0])
+            setSelectedCategory(allCategories.at(0))
         }
     }
 
@@ -74,31 +76,50 @@ const AddTransaction = ({ navigation, route }: any) => {
             if ('login_token' in loginDetails) {
                 if (loginDetails['login_token'] != null) {
 
-                    const response = await fetch(
-                        `${config.API_URL}/detail/transactions/`,
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'Authorization': `Token ${loginDetails['login_token']}`
-                            },
-                            body: JSON.stringify({
-                                "name": name,
-                                "value": value,
-                                "is_income": (selectedTransactionType.name === 'Income') ? true : false,
-                                "account_id": selectedAccount.id,
-                                "category_id": selectedCategory.id,
-                                "transaction_date": transactionDate
-                            })
-                        }
-                    )
-
-                    const json = await response.json();
-                    console.log(json)
+                    const json = await addTransactionApi({
+                        "name": name,
+                        "value": value,
+                        "type": selectedTransactionType.name,
+                        "is_income": (selectedTransactionType.name === 'Income') ? true : false,
+                        "account_id": selectedAccount.id,
+                        "category_id": selectedCategory.id,
+                        "transaction_date": transactionDate
+                    })
 
                     if (json.hasOwnProperty('non_field_errors')) {
                         Alert.alert('Error', json.non_field_errors[0])
+                    }
+
+                    if (selectedTransactionType.name === 'Transfer') {
+
+                        if (!selectedToAccount) {
+                            Alert.alert('To Account must be selected')
+                            return
+                        }
+
+                        if (selectedAccount === selectedToAccount) {
+                            Alert.alert('From and To Account cannot be the same')
+                            return
+                        }
+
+                        if (!json.hasOwnProperty('id')) {
+                            Alert.alert('Error', 'Server error. Cannot get from transaction')
+                        }
+
+                        const transactionAddJson = await addTransactionApi({
+                            "name": name,
+                            "value": value,
+                            "type": selectedTransactionType.name,
+                            "is_income": true,
+                            "account_id": selectedToAccount.id,
+                            "category_id": selectedCategory.id,
+                            "transfer_id": json.id,
+                            "transaction_date": transactionDate
+                        })
+
+                        if (transactionAddJson.hasOwnProperty('non_field_errors')) {
+                            Alert.alert('Error', transactionAddJson.non_field_errors[0])
+                        }
                     }
                 }
             } else {
