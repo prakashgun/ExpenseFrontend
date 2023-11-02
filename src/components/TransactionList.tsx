@@ -7,6 +7,7 @@ import { getTransactionsApi } from '../lib/transaction'
 import CommonHeader from './CommonHeader'
 import DatePanel from './DatePanel'
 import TransactionItem from './TransactionItem'
+import GLOBALS from '../lib/globals'
 
 
 const TransactionList = ({ navigation }: any) => {
@@ -101,10 +102,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343',
+        backgroundColor: GLOBALS.color.main,
         margin: 10
     },
-    buttonText: {
+    buttonText: {       
         color: '#fff',
         fontWeight: 'bold'
     }

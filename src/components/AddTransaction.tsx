@@ -14,6 +14,7 @@ import CategorySelect from './CategorySelect'
 import CommonHeader from './CommonHeader'
 import TransactionTypeSelect from './TransactionTypeSelect'
 import { addTransactionApi } from '../lib/transaction'
+import GLOBALS from '../lib/globals'
 
 
 const AddTransaction = ({ navigation, route }: any) => {
@@ -214,7 +215,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

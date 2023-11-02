@@ -7,6 +7,7 @@ import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
+import GLOBALS from '../lib/globals'
 
 
 const Register = () => {
@@ -129,6 +130,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#096A2E'
     },
     register: {
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     }
 })

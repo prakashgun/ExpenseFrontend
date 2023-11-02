@@ -4,6 +4,7 @@ import { Alert, StyleSheet, View } from 'react-native'
 import config from '../../config'
 import { setLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 const VerifyRegister = ({ route, navigation }: any) => {
     const [otp, setOtp] = useState<string>('')
@@ -71,6 +72,6 @@ const styles = StyleSheet.create({
         flex: 1
     },
     button: {
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     }
 })

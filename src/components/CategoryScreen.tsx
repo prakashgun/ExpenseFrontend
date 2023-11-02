@@ -6,6 +6,7 @@ import config from '../../config'
 import CategoryInterface from '../interfaces/CategoryInterface'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const CategoryScreen = ({ navigation, route }: any) => {
@@ -104,9 +105,9 @@ const CategoryScreen = ({ navigation, route }: any) => {
                 {
                     category &&
                     <PricingCard
-                        color="#729343"
+                        color={GLOBALS.color.main}
                         title={category.name}
-                        button={{ title: 'Delete Category', onPress: () => onDeleteItemPress(), color: '#ff0000' }}
+                        button={{ title: 'Delete Category', onPress: () => onDeleteItemPress(), color: GLOBALS.color.delete }}
                     />
                 }
 
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

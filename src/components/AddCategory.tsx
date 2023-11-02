@@ -5,7 +5,7 @@ import config from '../../config'
 import categoryIcons from '../lib/categoryIcons'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-
+import GLOBALS from '../lib/globals'
 
 
 const AddCategory = ({ navigation }: any) => {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

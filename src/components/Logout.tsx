@@ -5,6 +5,7 @@ import { Alert, StyleSheet, View } from 'react-native'
 import config from '../../config'
 import { getLoginDetails, setLoggedOut } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const Logout = () => {
@@ -51,7 +52,7 @@ const Logout = () => {
     return (
         <View style={styles.container}>
             <CommonHeader heading="Logout" />
-            <LinearProgress style={{ marginVertical: 10 }} color="#729343" />
+            <LinearProgress style={{ marginVertical: 10 }} color={GLOBALS.color.main} />
         </View>
     )
 }

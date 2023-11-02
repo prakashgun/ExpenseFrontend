@@ -4,6 +4,7 @@ import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import config from '../../config'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const AddAccount = ({ navigation }: any) => {
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

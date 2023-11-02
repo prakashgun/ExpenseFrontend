@@ -7,6 +7,7 @@ import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
+import GLOBALS from '../lib/globals'
 
 const Login = () => {
     const navigation = useNavigation<any>()
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

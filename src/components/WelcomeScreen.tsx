@@ -1,6 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
+import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import GLOBALS from '../lib/globals'
 
 
 const WelcomeScreen = () => {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     login: {
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     register: {
         backgroundColor: '#096A2E'

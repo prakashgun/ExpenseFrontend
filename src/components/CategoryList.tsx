@@ -5,6 +5,7 @@ import CategoryInterface from '../interfaces/CategoryInterface'
 import { getCategoriesApi } from '../lib/category'
 import CategoryItem from './CategoryItem'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const CategoryList = ({ navigation }: any) => {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343',
+        backgroundColor: GLOBALS.color.main,
         margin: 10
     },
     buttonText: {

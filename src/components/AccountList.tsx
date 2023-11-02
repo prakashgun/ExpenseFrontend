@@ -5,6 +5,7 @@ import AccountInterface from '../interfaces/AccountInterface'
 import { getAccountsApi } from '../lib/account'
 import AccountItem from './AccountItem'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const AccountList = ({ navigation }: any) => {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343',
+        backgroundColor: GLOBALS.color.main,
         margin: 10
     },
     buttonText: {

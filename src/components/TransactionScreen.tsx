@@ -7,6 +7,7 @@ import TransactionInterface from '../interfaces/TransactionInterface'
 import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const TransactionScreen = ({ navigation, route }: any) => {
@@ -105,11 +106,11 @@ const TransactionScreen = ({ navigation, route }: any) => {
                 {
                     transaction &&
                     <PricingCard
-                        color="#729343"
+                        color={GLOBALS.color.main}
                         title={transaction.category.name}
                         info={[`${transaction.category.name}`, `${transaction.name}`]}
                         price={thousands_separators(roundCurrency(transaction.value))}
-                        button={{ title: 'Delete Transaction', onPress: () => onDeleteItemPress(), color:'#ff0000', size: 'sm' }}
+                        button={{ title: 'Delete Transaction', onPress: () => onDeleteItemPress(), color:GLOBALS.color.delete, size: 'sm' }}
                     />
                 }
 
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',

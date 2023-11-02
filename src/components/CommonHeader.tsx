@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Header } from '@rneui/themed'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
+import GLOBALS from '../lib/globals'
 
 
 const CommonHeader = ({ heading }: any) => {
@@ -13,7 +14,7 @@ const CommonHeader = ({ heading }: any) => {
       <Header
         leftComponent={{ 'icon': 'menu' }}
         centerComponent={{ text: heading }}
-        backgroundColor="#729343"
+        backgroundColor={GLOBALS.color.main}
       />
     </TouchableOpacity>
   )

@@ -7,6 +7,7 @@ import AccountInterface from '../interfaces/AccountInterface'
 import { getCurrentBalance, roundCurrency, thousands_separators } from '../lib/currency'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
+import GLOBALS from '../lib/globals'
 
 
 const AccountScreen = ({ navigation, route }: any) => {
@@ -105,11 +106,11 @@ const AccountScreen = ({ navigation, route }: any) => {
                 {
                     account &&
                     <PricingCard
-                        color="#729343"
+                        color={GLOBALS.color.main}
                         title={account.name}
                         info={[`${account.note}`]}
                         price={thousands_separators(roundCurrency(getCurrentBalance(account)))}
-                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress(), color:'#ff0000' }}
+                        button={{ title: 'Delete Account', onPress: () => onDeleteItemPress(), color:GLOBALS.color.delete }}
                     />
                 }
 
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        backgroundColor: '#729343'
+        backgroundColor: GLOBALS.color.main
     },
     buttonText: {
         color: '#fff',
