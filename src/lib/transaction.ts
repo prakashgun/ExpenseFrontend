@@ -1,8 +1,9 @@
 import { Alert } from "react-native";
 import config from "../../config";
 import { getLoginDetails } from "./storage";
+import { frameDbDate } from "./utils";
 
-export const getTransactionsApi = async () => {
+export const getTransactionsApi = async (date: Date) => {
 
     try {
         const loginDetails = await getLoginDetails()
@@ -11,7 +12,7 @@ export const getTransactionsApi = async () => {
             if (loginDetails['login_token'] != null) {
 
                 const response = await fetch(
-                    `${config.API_URL}/detail/transactions/`,
+                    `${config.API_URL}/detail/transactions/?created_date=${frameDbDate(date)}`,
                     {
                         method: 'GET',
                         headers: {
@@ -21,6 +22,8 @@ export const getTransactionsApi = async () => {
                         }
                     }
                 )
+
+                console.log( `${config.API_URL}/detail/transactions/?created_date=${frameDbDate(date)}`)
 
                 const json = await response.json();
 

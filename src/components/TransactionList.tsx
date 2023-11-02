@@ -1,9 +1,11 @@
+import DateTimePicker from '@react-native-community/datetimepicker'
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import TransactionInterface from '../interfaces/TransactionInterface'
 import { getTransactionsApi } from '../lib/transaction'
 import CommonHeader from './CommonHeader'
+import DatePanel from './DatePanel'
 import TransactionItem from './TransactionItem'
 
 
@@ -11,23 +13,61 @@ const TransactionList = ({ navigation }: any) => {
     const [transactions, setTransactions] = useState<TransactionInterface[]>()
     const [transactionDate, setTransactionDate] = useState<Date>(new Date())
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
 
     const loadData = async () => {
-        const allTransactions = await getTransactionsApi()
+        setIsLoading(true)
+        const allTransactions = await getTransactionsApi(transactionDate)
         setTransactions(allTransactions)
+        setIsLoading(false)
+    }
+
+    const onDateChange = (event: any, selectedDate?: Date) => {
+        if (!selectedDate) return
+        setTransactionDate(selectedDate)
+    }
+
+    const handleDateDecrease = () => {
+        let newDate = transactionDate
+        newDate.setDate(transactionDate.getDate() - 1)
+        setTransactionDate(newDate)
+        loadData()
+    }
+
+    const handleDateIncrease = () => {
+        let newDate = transactionDate
+        newDate.setDate(transactionDate.getDate() + 1)
+        setTransactionDate(newDate)
+        loadData()
     }
 
     useEffect(() => {
-        setIsLoading(true)
         loadData()
-        setIsLoading(false)
     }, [useIsFocused()])
 
     return (
         <View style={styles.container}>
             <CommonHeader heading="Transactions" />
-            {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
+            {showDatePicker && (
+                <DateTimePicker
+                    testID="dateTimePicker"
+                    value={transactionDate}
+                    mode="date"
+                    display="inline"
+                    onChange={onDateChange}
+                />
+            )}
+            <View>
+                <DatePanel
+                    date={transactionDate}
+                    onDateDecrease={handleDateDecrease}
+                    onDateIncrease={handleDateIncrease}
+                />
+            </View>
+
                 <ScrollView >
+            {isLoading ? <ActivityIndicator size="large" color="#3e3b33" /> :
+                <View>
                     {
                         transactions && transactions.map((transaction) => (
                             <TransactionItem
@@ -39,8 +79,8 @@ const TransactionList = ({ navigation }: any) => {
                             />
                         ))
                     }
-
-                </ScrollView>}
+                    </View>}
+                </ScrollView>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AddTransaction', { transactionDate: transactionDate.toISOString() })}>
                 <Text style={styles.buttonText}>Add</Text>
             </TouchableOpacity>
