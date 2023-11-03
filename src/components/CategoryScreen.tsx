@@ -1,12 +1,13 @@
 import { useIsFocused } from '@react-navigation/native'
-import { PricingCard } from '@rneui/themed'
+import { Icon } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
-import { Alert, ScrollView, StyleSheet, View } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
 import config from '../../config'
 import CategoryInterface from '../interfaces/CategoryInterface'
+import GLOBALS from '../lib/globals'
 import { getLoginDetails } from '../lib/storage'
 import CommonHeader from './CommonHeader'
-import GLOBALS from '../lib/globals'
+
 
 
 const CategoryScreen = ({ navigation, route }: any) => {
@@ -50,7 +51,7 @@ const CategoryScreen = ({ navigation, route }: any) => {
         }
     }
 
-    const onDeleteItemPress = () => {
+    const handleDelete = () => {
         Alert.alert(
             'Delete',
             'Delete this category and all associated records ?',
@@ -100,17 +101,17 @@ const CategoryScreen = ({ navigation, route }: any) => {
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Category Detail" />
+            <CommonHeader heading="Account Detail" />
             <ScrollView >
-                {
-                    category &&
-                    <PricingCard
-                        color={GLOBALS.color.main}
-                        title={category.name}
-                        button={{ title: 'Delete Category', onPress: () => onDeleteItemPress(), color: GLOBALS.color.delete }}
-                    />
-                }
-
+                {category && <View>
+                    <View style={styles.details}>
+                        <View style={styles.detailRow}>
+                            <Text style={styles.label}>Category Name:</Text>
+                            <Text style={styles.value}>{category.name}</Text>
+                        </View>
+                        <Icon name="delete" type="ant-design" onPress={handleDelete} color={GLOBALS.color.delete} />
+                    </View>
+                </View>}
             </ScrollView>
         </View>
     )
@@ -122,17 +123,30 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    button: {
-        width: '88%',
-        height: 50,
+    details: {
+        backgroundColor: 'white',
+        padding: 20,
         borderRadius: 10,
+        marginTop: 10,
+    },
+    detailRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    label: {
+        fontWeight: 'bold',
+    },
+    value: {
+        flex: 1,
+        textAlign: 'right',
+    },
+    deleteButton: {
+        backgroundColor: 'red',
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center',
-        backgroundColor: GLOBALS.color.main
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold'
+        borderRadius: 10,
+        marginTop: 20,
     }
 })
