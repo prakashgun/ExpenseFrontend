@@ -132,28 +132,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    button: {
-        width: '88%',
-        height: 50,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        backgroundColor: GLOBALS.color.main
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: 'bold'
-    },
-    header: {
-        backgroundColor: GLOBALS.color.main,
-        padding: 20,
-        alignItems: 'center',
-    },
-    headerText: {
-        fontSize: 24,
-        color: 'white',
-    },
     details: {
         backgroundColor: 'white',
         padding: 20,
@@ -179,10 +157,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         marginTop: 20,
-    },
-    deleteButtonText: {
-        color: 'white',
-        marginLeft: 10,
-        fontSize: 18,
-    },
+    }
 })
