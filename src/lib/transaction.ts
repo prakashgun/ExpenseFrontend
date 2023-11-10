@@ -23,8 +23,6 @@ export const getTransactionsApi = async (date: Date) => {
                     }
                 )
 
-                console.log( `${config.API_URL}/detail/transactions/?created_date=${frameDbDate(date)}`)
-
                 const json = await response.json();
 
                 if (json.hasOwnProperty('non_field_errors')) {

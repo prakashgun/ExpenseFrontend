@@ -58,7 +58,7 @@ const CategoryScreen = ({ navigation, route }: any) => {
             [
                 {
                     text: 'Cancel',
-                    onPress: () => console.log('Cancel pressed'),
+                    onPress: () => {},
                     style: 'cancel'
                 },
                 {

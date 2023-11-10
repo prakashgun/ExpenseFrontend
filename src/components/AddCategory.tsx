@@ -90,7 +90,7 @@ const AddCategory = ({ navigation }: any) => {
                 <Input
                     placeholder={selectedIcon.icon_name}
                     leftIcon={{ type: selectedIcon.icon_type, name: selectedIcon.icon_name }}
-                    onChangeText={() => console.log('Icon selected')}
+                    onChangeText={() => {}}
                     disabled
                 />
             </TouchableOpacity>

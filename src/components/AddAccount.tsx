@@ -51,8 +51,6 @@ const AddAccount = ({ navigation }: any) => {
                 )
                 const json = await response.json();
 
-                console.log(json)
-
                 if (json.hasOwnProperty('non_field_errors')) {
                     Alert.alert('Error', json.non_field_errors[0])
                 }
