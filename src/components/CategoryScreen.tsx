@@ -101,7 +101,7 @@ const CategoryScreen = ({ navigation, route }: any) => {
 
     return (
         <View style={styles.container}>
-            <CommonHeader heading="Account Detail" />
+            <CommonHeader heading="Category Detail" />
             <ScrollView >
                 {category && <View>
                     <View style={styles.details}>
