@@ -26,6 +26,8 @@ const TransactionList = ({ navigation }: any) => {
     const onDateChange = (event: any, selectedDate?: Date) => {
         if (!selectedDate) return
         setTransactionDate(selectedDate)
+        setShowDatePicker(false)
+        loadData()
     }
 
     const handleDateDecrease = () => {
@@ -63,6 +65,7 @@ const TransactionList = ({ navigation }: any) => {
                     date={transactionDate}
                     onDateDecrease={handleDateDecrease}
                     onDateIncrease={handleDateIncrease}
+                    setShowDatePicker={setShowDatePicker}
                 />
             </View>
 

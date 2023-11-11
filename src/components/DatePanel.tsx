@@ -3,15 +3,19 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import GLOBALS from '../lib/globals'
 
-const DatePanel = ({ date, onDateDecrease, onDateIncrease }: any) => {
+const DatePanel = ({ date, onDateDecrease, onDateIncrease, setShowDatePicker }: any) => {
     const formattedDate = date.toLocaleDateString(undefined, { "day": "numeric", "month": "short", "year": "numeric" })
+
+    const handleClick = () => {
+        console.log('date clicked')
+    }
 
     return (
         <View style={styles.datePanel}>
             <TouchableOpacity onPress={onDateDecrease}>
                 <Icon name="caretleft" type="ant-design" onPress={onDateDecrease} color={GLOBALS.color.main} />
             </TouchableOpacity>
-            <Text style={styles.dateText}>{formattedDate}</Text>
+            <TouchableOpacity onPress={()=>setShowDatePicker(true)}><Text style={styles.dateText}>{formattedDate}</Text></TouchableOpacity>
             <TouchableOpacity onPress={onDateIncrease}>
                 <Icon name="caretright" type="ant-design" onPress={onDateIncrease} color={GLOBALS.color.main} />
             </TouchableOpacity>
