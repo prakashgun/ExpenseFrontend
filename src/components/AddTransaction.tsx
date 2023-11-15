@@ -87,6 +87,8 @@ const AddTransaction = ({ navigation, route }: any) => {
                         "transaction_date": transactionDate
                     })
 
+                    // TODO: Fix the 400 error when adding string to value
+                    
                     if (json.hasOwnProperty('non_field_errors')) {
                         Alert.alert('Error', json.non_field_errors[0])
                     }
@@ -132,7 +134,7 @@ const AddTransaction = ({ navigation, route }: any) => {
             console.error(error);
         }
 
-        navigation.navigate('TransactionList')
+        navigation.navigate('TransactionList', {}, {forceRefresh:true})
     }
 
     return (

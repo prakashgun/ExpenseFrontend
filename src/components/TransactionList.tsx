@@ -1,4 +1,4 @@
-import DateTimePicker from '@react-native-community/datetimepicker'
+import CalendarPicker from 'react-native-calendar-picker'
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
@@ -16,50 +16,48 @@ const TransactionList = ({ navigation }: any) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
 
-    const loadData = async () => {
+    const loadData = async (date: Date) => {
         setIsLoading(true)
-        const allTransactions = await getTransactionsApi(transactionDate)
+        const allTransactions = await getTransactionsApi(date)
         setTransactions(allTransactions)
         setIsLoading(false)
     }
 
-    const onDateChange = (event: any, selectedDate?: Date) => {
+    const onDateChange = (selectedDate?: any) => {
         if (!selectedDate) return
-        setTransactionDate(selectedDate)
+        const newTransactionDate = new Date(selectedDate)
+        setTransactionDate(newTransactionDate)
         setShowDatePicker(false)
-        loadData()
     }
 
     const handleDateDecrease = () => {
-        let newDate = transactionDate
-        newDate.setDate(transactionDate.getDate() - 1)
-        setTransactionDate(newDate)
-        loadData()
+        let newTransactionDate = transactionDate
+        newTransactionDate.setDate(transactionDate.getDate() - 1)
+        setTransactionDate(newTransactionDate)
+
     }
 
     const handleDateIncrease = () => {
-        let newDate = transactionDate
-        newDate.setDate(transactionDate.getDate() + 1)
-        setTransactionDate(newDate)
-        loadData()
+        let newTransactionDate = transactionDate
+        newTransactionDate.setDate(transactionDate.getDate() + 1)
+        setTransactionDate(newTransactionDate)
+
     }
 
     useEffect(() => {
-        loadData()
-    }, [useIsFocused()])
+        loadData(transactionDate)
+    }, [useIsFocused(), transactionDate])
 
     return (
         <View style={styles.container}>
             <CommonHeader heading="Transactions" />
+
             {showDatePicker && (
-                <DateTimePicker
-                    testID="dateTimePicker"
-                    value={transactionDate}
-                    mode="date"
-                    display="inline"
-                    onChange={onDateChange}
-                />
+                 <CalendarPicker
+                 onDateChange={onDateChange}
+               />
             )}
+
             <View>
                 <DatePanel
                     date={transactionDate}
