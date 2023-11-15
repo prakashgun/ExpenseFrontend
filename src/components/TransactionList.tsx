@@ -1,7 +1,7 @@
 import CalendarPicker from 'react-native-calendar-picker'
 import { useIsFocused } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import TransactionInterface from '../interfaces/TransactionInterface'
 import { getTransactionsApi } from '../lib/transaction'
 import CommonHeader from './CommonHeader'
@@ -11,42 +11,52 @@ import GLOBALS from '../lib/globals'
 
 
 const TransactionList = ({ navigation }: any) => {
-    const [transactions, setTransactions] = useState<TransactionInterface[]>()
+    const [transactions, setTransactions] = useState<TransactionInterface[]>([])
     const [transactionDate, setTransactionDate] = useState<Date>(new Date())
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
 
     const loadData = async (date: Date) => {
-        setIsLoading(true)
-        const allTransactions = await getTransactionsApi(date)
-        setTransactions(allTransactions)
-        setIsLoading(false)
+        try {
+            setIsLoading(true)
+            const allTransactions = await getTransactionsApi(date)
+            setTransactions(allTransactions);
+        } catch (error) {
+            Alert.alert('Error', 'Failed to load transactions. Please check your internet connection and try again.')
+        } finally {
+            setIsLoading(false)
+        }
     }
+    
 
     const onDateChange = (selectedDate?: any) => {
-        if (!selectedDate) return
-        const newTransactionDate = new Date(selectedDate)
-        setTransactionDate(newTransactionDate)
-        setShowDatePicker(false)
+        try {
+            if (!selectedDate) return;
+            const newTransactionDate = new Date(selectedDate);
+            if (!isNaN(newTransactionDate.getTime())) {
+                setTransactionDate(newTransactionDate);
+                setShowDatePicker(false);
+            } else {
+                // Handle invalid date
+                console.error('Invalid date');
+            }
+        } catch (error) {
+            // Handle other errors
+            console.error('Error in onDateChange:', error);
+        }
     }
 
     const handleDateDecrease = () => {
-        let newTransactionDate = transactionDate
-        newTransactionDate.setDate(transactionDate.getDate() - 1)
-        setTransactionDate(newTransactionDate)
-
+        setTransactionDate(new Date(transactionDate.getTime() - 24 * 60 * 60 * 1000));
     }
-
+    
     const handleDateIncrease = () => {
-        let newTransactionDate = transactionDate
-        newTransactionDate.setDate(transactionDate.getDate() + 1)
-        setTransactionDate(newTransactionDate)
-
+        setTransactionDate(new Date(transactionDate.getTime() + 24 * 60 * 60 * 1000));
     }
 
     useEffect(() => {
-        loadData(transactionDate)
-    }, [useIsFocused(), transactionDate])
+            loadData(transactionDate)
+    }, [transactionDate, useIsFocused()])
 
     return (
         <View style={styles.container}>
