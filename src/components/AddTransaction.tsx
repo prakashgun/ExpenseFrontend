@@ -2,19 +2,18 @@ import { useIsFocused } from '@react-navigation/native'
 import { Input } from '@rneui/themed'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import config from '../../config'
 import AccountInterface from '../interfaces/AccountInterface'
 import CategoryInterface from '../interfaces/CategoryInterface'
 import TransactionTypeInterface, { transactionTypes } from '../interfaces/TransactionTypeInterface'
 import { getAccountsApi } from '../lib/account'
 import { getCategoriesApi } from '../lib/category'
+import GLOBALS from '../lib/globals'
 import { getLoginDetails } from '../lib/storage'
+import { addTransactionApi } from '../lib/transaction'
 import AccountSelect from './AccountSelect'
 import CategorySelect from './CategorySelect'
 import CommonHeader from './CommonHeader'
 import TransactionTypeSelect from './TransactionTypeSelect'
-import { addTransactionApi } from '../lib/transaction'
-import GLOBALS from '../lib/globals'
 
 
 const AddTransaction = ({ navigation, route }: any) => {
@@ -77,7 +76,7 @@ const AddTransaction = ({ navigation, route }: any) => {
             if ('login_token' in loginDetails) {
                 if (loginDetails['login_token'] != null) {
 
-                    const json = await addTransactionApi({
+                    let apiResponse = await addTransactionApi({
                         "name": name,
                         "value": value,
                         "type": selectedTransactionType.name,
@@ -87,8 +86,19 @@ const AddTransaction = ({ navigation, route }: any) => {
                         "transaction_date": transactionDate
                     })
 
-                    // TODO: Fix the 400 error when adding string to value
-                    
+                    if (!Array.isArray(apiResponse)) {
+                        throw new Error('Api response is not good')
+                    }
+
+                    let [json, httpResponseCode] = apiResponse
+
+                    if (httpResponseCode == 400) {
+                        if (json.hasOwnProperty('value')) {
+                            setValueError(json['value'][0])
+                        }
+                        throw new Error('Form validation error')
+                    }
+
                     if (json.hasOwnProperty('non_field_errors')) {
                         Alert.alert('Error', json.non_field_errors[0])
                     }
@@ -109,7 +119,7 @@ const AddTransaction = ({ navigation, route }: any) => {
                             Alert.alert('Error', 'Server error. Cannot get from transaction')
                         }
 
-                        const transactionAddJson = await addTransactionApi({
+                        let transferApiResponse = await addTransactionApi({
                             "name": name,
                             "value": value,
                             "type": selectedTransactionType.name,
@@ -120,8 +130,21 @@ const AddTransaction = ({ navigation, route }: any) => {
                             "transaction_date": transactionDate
                         })
 
-                        if (transactionAddJson.hasOwnProperty('non_field_errors')) {
-                            Alert.alert('Error', transactionAddJson.non_field_errors[0])
+                        if (!Array.isArray(transferApiResponse)) {
+                            throw new Error('Transfer api response is not good')
+                        }
+
+                        let [transferJson, httpResponseCode] = transferApiResponse
+
+                        if (httpResponseCode == 400) {
+                            if (transferJson.hasOwnProperty('value')) {
+                                setValueError(transferJson['value'][0])
+                            }
+                            throw new Error('Form validation error')
+                        }
+
+                        if (transferJson.hasOwnProperty('non_field_errors')) {
+                            Alert.alert('Error', transferJson.non_field_errors[0])
                         }
                     }
                 }
@@ -131,10 +154,8 @@ const AddTransaction = ({ navigation, route }: any) => {
 
             navigation.navigate('TransactionList')
         } catch (error) {
-            console.error(error);
+            // Some error occured
         }
-
-        navigation.navigate('TransactionList', {}, {forceRefresh:true})
     }
 
     return (

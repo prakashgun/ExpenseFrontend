@@ -60,7 +60,10 @@ export const addTransactionApi = async (transactionDetail: object) => {
                     }
                 )
 
-                return await response.json()
+                const responseData = await response.json()
+                const httpResponseCode = response.status
+
+                return [responseData, httpResponseCode]
             } else {
                 Alert.alert('Error', 'Please login again')
             }
