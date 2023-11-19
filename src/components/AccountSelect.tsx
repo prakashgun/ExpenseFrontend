@@ -1,17 +1,17 @@
 import { Button } from '@rneui/base'
-import { Icon, Input, ListItem, Overlay, Text } from '@rneui/themed'
+import { Icon, ListItem, Overlay } from '@rneui/themed'
 import React, { useState } from 'react'
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import AccountInterface from '../interfaces/AccountInterface'
 import AccountSelectInterface from '../interfaces/AccountSelectInterface'
 
 
 const AccountSelect = (
-    { 
+    {
         accounts, selectedAccount, setSelectedAccount, selectedTransactionType = null, isFromAccount = true,
         inputButtonStyle
     }: AccountSelectInterface
-    ) => {
+) => {
 
     const [accountsExpanded, setAccountsExpanded] = useState<boolean>(false)
     let placeholder = 'Account:'
@@ -39,9 +39,8 @@ const AccountSelect = (
                 icon={{ type: "font-awesome", name: "bank", color: 'white' }}
                 buttonStyle={inputButtonStyle}
             />
-            <Overlay fullScreen={true} isVisible={accountsExpanded} onBackdropPress={toggleAccountsOverlay}>
-                <Text h4>Select Account</Text>
-                <ScrollView>
+            <Overlay overlayStyle={styles.overlay} isVisible={accountsExpanded} onBackdropPress={toggleAccountsOverlay}>
+                <ScrollView style={styles.scrollView}>
                     {accounts && accounts.map((account, i) => (
                         <ListItem key={i} onPress={() => onAccountIconPress(account)} bottomDivider>
                             <Icon name="bank" type="font-awesome" />
@@ -62,7 +61,15 @@ const styles = StyleSheet.create({
     container: {
         padding: 5
     },
-    disabled_input: {
-        opacity: 1
+    overlay: {
+        height: '75%',
+        width: '75%'
+    },
+    overlayHeaderText: {
+        fontWeight: "bold",
+        marginBottom: 10
+    },
+    scrollView: {
+        width: '100%', // Ensure the ScrollView takes the full width
     }
 })
