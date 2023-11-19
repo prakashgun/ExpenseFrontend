@@ -65,10 +65,6 @@ const styles = StyleSheet.create({
         height: '75%',
         width: '75%'
     },
-    overlayHeaderText: {
-        fontWeight: "bold",
-        marginBottom: 10
-    },
     scrollView: {
         width: '100%', // Ensure the ScrollView takes the full width
     }
