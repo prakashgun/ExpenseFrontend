@@ -2,12 +2,13 @@ import { useNavigation } from '@react-navigation/native'
 import { Input } from '@rneui/themed'
 import React, { useState } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import config from '../../config'
 import CountryInterface from '../interfaces/CountryInterface'
 import countries from '../lib/countries'
 import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
-import GLOBALS from '../lib/globals'
+import config from '../../config'
+import { FontAwesome } from '@expo/vector-icons'
+
 
 const Login = () => {
     const navigation = useNavigation<any>()
@@ -63,14 +64,20 @@ const Login = () => {
     return (
         <View style={styles.container}>
             <CommonHeader heading="Login" />
-            <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
-            <Input
-                placeholder='Mobile'
-                leftIcon={{ type: 'font-awesome', name: 'phone' }}
-                onChangeText={setPhone}
-                errorMessage={phoneError}
-            />
-            <TouchableOpacity style={styles.button} onPress={() => loginApi()}>
+            <View style={styles.inputContainer}>
+                <FontAwesome name='flag' size={25} style={styles.icon} />
+                <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
+            </View>
+            <View style={styles.inputContainer}>
+                <FontAwesome name='phone' size={25} style={styles.icon} />
+                <Input
+                    placeholder='Mobile'
+                    onChangeText={setPhone}
+                    errorMessage={phoneError}
+                    keyboardType='numeric'
+                />
+            </View>
+            <TouchableOpacity style={[styles.button, styles.register]} onPress={() => loginApi()}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
         </View>
@@ -79,9 +86,19 @@ const Login = () => {
 
 export default Login
 
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 20,
+        marginHorizontal: 10
+    },
+    icon: {
+        marginRight: 10,
     },
     button: {
         width: '88%',
@@ -89,11 +106,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf: 'center',
-        backgroundColor: GLOBALS.color.main
+        alignSelf: 'center'
     },
     buttonText: {
         color: '#fff',
         fontWeight: 'bold'
+    },
+    login: {
+        backgroundColor: '#096A2E'
+    },
+    register: {
+        backgroundColor: '#729343'
     }
 })
