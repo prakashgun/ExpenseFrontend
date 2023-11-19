@@ -1,4 +1,4 @@
-import { Button, FAB, Icon, ListItem, Overlay, Text } from '@rneui/themed'
+import { Button, Icon, ListItem, Overlay, Text } from '@rneui/themed'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import CategoryInterface from '../interfaces/CategoryInterface'
@@ -26,9 +26,11 @@ const CategorySelect = ({ categories, selectedCategory, setSelectedCategory, inp
                 icon={{ type: selectedCategory.icon_type, name: selectedCategory.icon_name, color: 'white' }}
                 buttonStyle={inputButtonStyle}
             />
-            <Overlay fullScreen={true} isVisible={categoriesExpanded} onBackdropPress={toggleCategoriesOverlay}>
-                <Text h4>Select Category</Text>
-                <ScrollView>
+            <Overlay
+                overlayStyle={styles.overlay}
+                isVisible={categoriesExpanded}
+                onBackdropPress={toggleCategoriesOverlay}>
+                <ScrollView style={styles.scrollView}>
                     {categories && categories.map((category, i) => (
                         <ListItem key={i} onPress={() => onCategoryIconPress(category)} bottomDivider>
                             <Icon name={category.icon_name} type={category.icon_type} />
@@ -48,5 +50,12 @@ export default CategorySelect
 const styles = StyleSheet.create({
     container: {
         padding: 5
+    },
+    overlay: {
+        height: '75%',
+        width: '75%'
+    },
+    scrollView: {
+        width: '100%', // Ensure the ScrollView takes the full width
     }
 })
