@@ -65,11 +65,11 @@ const Login = () => {
         <View style={styles.container}>
             <CommonHeader heading="Login" />
             <View style={styles.inputContainer}>
-                <FontAwesome name='flag' size={25} style={styles.icon} />
+                <FontAwesome name='flag' size={20} style={styles.icon} />
                 <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
             </View>
             <View style={styles.inputContainer}>
-                <FontAwesome name='phone' size={25} style={styles.icon} />
+                <FontAwesome name='phone' size={20} style={styles.icon} />
                 <Input
                     placeholder='Mobile'
                     onChangeText={setPhone}
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         marginRight: 10,
+        marginBottom: 15
     },
     button: {
         width: '88%',
