@@ -8,6 +8,7 @@ import CommonHeader from './CommonHeader'
 import SearchableCountryPicker from './SearchableCountryPicker'
 import config from '../../config'
 import { FontAwesome } from '@expo/vector-icons'
+import CountrySelect from './CountrySelect'
 
 
 const Login = () => {
@@ -66,7 +67,14 @@ const Login = () => {
             <CommonHeader heading="Login" />
             <View style={styles.inputContainer}>
                 <FontAwesome name='flag' size={20} style={styles.icon} />
-                <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} />
+                {/* <SearchableCountryPicker countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} /> */}
+                {countries && selectedCountry && 
+                        <CountrySelect
+                            countries={countries}
+                            selectedCountry={selectedCountry}
+                            setSelectedCountry={setSelectedCountry}
+                            inputButtonStyle={styles.inputButtonStyle}
+                        />}
             </View>
             <View style={styles.inputContainer}>
                 <FontAwesome name='phone' size={20} style={styles.icon} />
@@ -118,5 +126,12 @@ const styles = StyleSheet.create({
     },
     register: {
         backgroundColor: '#729343'
+    },
+    inputButtonStyle: {
+        backgroundColor: "olive",
+        borderColor: 'transparent',
+        borderWidth: 0,
+        borderRadius: 5,
+        padding: 5
     }
 })
