@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         backgroundColor: GLOBALS.color.main,
-        margin: 10
+        marginBottom: 30
     },
     buttonText: {       
         color: '#fff',
