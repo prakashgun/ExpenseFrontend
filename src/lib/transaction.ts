@@ -12,7 +12,7 @@ export const getTransactionsApi = async (date: Date) => {
             if (loginDetails['login_token'] != null) {
 
                 const response = await fetch(
-                    `${config.API_URL}/detail/transactions/?created_date=${frameDbDate(date)}`,
+                    `${config.API_URL}/detail/transactions/?transaction_date=${frameDbDate(date)}`,
                     {
                         method: 'GET',
                         headers: {

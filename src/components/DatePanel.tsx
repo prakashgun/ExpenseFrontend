@@ -6,10 +6,6 @@ import GLOBALS from '../lib/globals'
 const DatePanel = ({ date, onDateDecrease, onDateIncrease, setShowDatePicker }: any) => {
     const formattedDate = date.toLocaleDateString(undefined, { "day": "numeric", "month": "short", "year": "numeric" })
 
-    const handleClick = () => {
-        console.log('date clicked')
-    }
-
     return (
         <View style={styles.datePanel}>
             <TouchableOpacity onPress={onDateDecrease}>
